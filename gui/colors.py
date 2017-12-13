@@ -1,4 +1,4 @@
-from ..gameplay.field import CellType
+from gameplay.field import CellType
 
 
 class Colors:

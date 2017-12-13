@@ -1,18 +1,20 @@
 import numpy as np
 import pygame
 
-from .colors import Colors
-from ..agent.player import PlayerAgent
-from ..gameplay.field import CellType
-from ..gameplay.snake import SnakeActions, SnakeDirections
-from ..utils.stopwatch import Stopwatch
+from pygame.locals import KEYDOWN, QUIT
+
+from gui.colors import Colors
+from agent.player import PlayerAgent
+from gameplay.field import CellType
+from gameplay.snake import SnakeActions, SnakeDirections
+from utils.stopwatch import Stopwatch
 
 
 class GameGUI:
 
     FPS_LIMIT = 60
     AI_TIMESTEP_DELAY = 100
-    HUMAN_TIMESTEP_DELAY = 500
+    HUMAN_TIMESTEP_DELAY = 1000
     CELL_SIZE = 20
 
     SNAKE_CONTROL_KEYS = [
@@ -65,7 +67,7 @@ class GameGUI:
                              cell_coordinates)
         else:
             color = Colors.CELL_TYPE[self.env.field[x, y]]
-            pygame.draw.rect(self.screen, color, cell_coordinates, width=1)
+            pygame.draw.rect(self.screen, color, cell_coordinates, 1)
 
             internal_padding = self.CELL_SIZE // 6 * 2
             internal_padding = (-internal_padding, -internal_padding)
@@ -124,13 +126,15 @@ class GameGUI:
             action = default_action
 
             for event in pygame.event.get():
-                if event.type == pygame.KEYDOWN:
+                print('Event ', event.type)
+
+                if event.type == KEYDOWN:
                     if is_human_agent and event.key in self.SNAKE_CONTROL_KEYS:
                         action = self.map_key_to_snake_action(event.key)
                     if event.key == pygame.K_ESCAPE:
                         raise QuitRequestedError
 
-                if event.type == pygame.QUIT:
+                if event.type == QUIT:
                     raise QuitRequestedError
 
             # Update game state.
@@ -151,7 +155,7 @@ class GameGUI:
                     self.agent.end_episode()
                     break
 
-            self.render()
+            self.render_scene()
 
     def initialize_env(self):
         """ Initialize environment for new session. """

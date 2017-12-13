@@ -1,6 +1,6 @@
 from collections import deque
 
-from ..utils.point import Point
+from utils.point import Point
 
 
 class SnakeDirections(object):
@@ -24,6 +24,13 @@ class SnakeActions(object):
     MAINTAIN_DIRECTION = 0
     TURN_LEFT = 1
     TURN_RIGHT = 2
+
+
+ALL_SNAKE_ACTIONS = [
+    SnakeActions.TURN_LEFT,
+    SnakeActions.TURN_RIGHT,
+    SnakeActions.MAINTAIN_DIRECTION,
+]
 
 
 class Snake(object):

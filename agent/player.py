@@ -1,5 +1,5 @@
-from .base import BaseAgent
-from ..gameplay.snake import SnakeActions
+from agent.base import BaseAgent
+from gameplay.snake import SnakeActions
 
 
 class PlayerAgent(BaseAgent):

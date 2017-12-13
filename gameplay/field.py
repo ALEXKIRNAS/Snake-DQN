@@ -4,9 +4,8 @@ from typing import List
 
 import numpy as np
 
-from .snake import Snake
-from ..levels.coders import LEVEL_MAP_TO_CELL_TYPE, CELL_TYPE_TO_LEVEL_MAP
-from ..utils.point import Point
+from gameplay.snake import Snake
+from utils.point import Point
 
 
 class CellType(object):
@@ -19,10 +18,25 @@ class CellType(object):
     WALL = 4
 
 
+LEVEL_MAP_TO_CELL_TYPE = {
+        'S': CellType.SNAKE_HEAD,
+        's': CellType.SNAKE_BODY,
+        '#': CellType.WALL,
+        'O': CellType.FRUIT,
+        '.': CellType.EMPTY,
+}
+
+
+CELL_TYPE_TO_LEVEL_MAP = {
+    cell_type: level_map_char
+    for (level_map_char, cell_type) in LEVEL_MAP_TO_CELL_TYPE.items()
+}
+
+
 class Field(object):
     """ Represents the playing field for the Snake game. """
 
-    def __init__(self, level_map: List(str)):
+    def __init__(self, level_map: List[str]):
         """
         Create a new Snake field.
 
@@ -99,8 +113,8 @@ class Field(object):
 
         self[snake.head] = CellType.SNAKE_HEAD
         snake_body_cells_slice = itertools.islice(snake.body,
-                                                  start=1,
-                                                  stop=len(snake.body))
+                                                  1,
+                                                  len(snake.body))
         for snake_cell in snake_body_cells_slice:
             self[snake_cell] = CellType.SNAKE_BODY
 
