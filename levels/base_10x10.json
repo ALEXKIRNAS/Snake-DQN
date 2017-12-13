@@ -18,6 +18,6 @@
   "rewards": {
     "timestep": 0,
     "ate_fruit": 1,
-    "died": -1000
+    "died": -1
   }
 }
